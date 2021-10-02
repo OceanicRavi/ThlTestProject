@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "1Qep7IZlvOhZlGlDNfo3JBqQZ+02Zg763bje7jnIL8FLoYJs4Cd8UBKxjKnrbbA9pFl05fHbl6qNV1KGsl4JOA==",
+  "dgSpecHash": "akshmMPCsl4a9iExFV4mJYTTHSUZxvQabH7wfZNUGmYMctR0MR/vo7xmwhuVEVxGHzEWryY2L8sAgKoeW/e/LQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\18rav\\source\\repos\\ThlTestProject\\ThlTestProject\\ThlTestProject.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\18rav\\.nuget\\packages\\log4net\\2.0.12\\log4net.2.0.12.nupkg.sha512",
     "C:\\Users\\18rav\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\18rav\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "C:\\Users\\18rav\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.0\\microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",

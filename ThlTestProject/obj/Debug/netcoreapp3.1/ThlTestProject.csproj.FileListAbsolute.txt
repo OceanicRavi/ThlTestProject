@@ -151,6 +151,7 @@ C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\bin\Debug\netcoreapp3.
 C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\bin\Debug\netcoreapp3.1\log4net.dll
 C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\obj\Debug\netcoreapp3.1\ThlTestProject.csproj.CoreCompileInputs.cache
 C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\obj\Debug\netcoreapp3.1\ThlTestProject.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\18rav\source\repos\ThlTestProject\ThlTestProject\obj\Debug\netcoreapp3.1\ThlTestProject.MvcApplicationPartsAssemblyInfo.cache

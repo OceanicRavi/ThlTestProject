@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -15,16 +16,18 @@ namespace ThlTestProject.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ProductContext _context;
-
+        private readonly log4net.ILog log;
         public ProductsController(ProductContext context)
         {
             _context = context;
+             log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         }
 
         // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
+            log.Info("Get all products.");
             return await _context.Products.ToListAsync();
         }
 
@@ -32,6 +35,7 @@ namespace ThlTestProject.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Product>> GetProduct(long id)
         {
+            log.Info("Get specific product by id.");
             var product = await _context.Products.FindAsync(id);
 
             if (product == null)
@@ -45,7 +49,8 @@ namespace ThlTestProject.Controllers
         [HttpGet("{productName}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct(string productName)
         {
-            if(string.IsNullOrEmpty(productName))
+            log.Info("Get specific product by name. fuzzy search");
+            if (string.IsNullOrEmpty(productName))
             {
                 return await _context.Products.ToListAsync();
             }
@@ -66,6 +71,8 @@ namespace ThlTestProject.Controllers
         {
             if (id != product.Id)
             {
+                var message = string.Format("Invalid Product ID.");
+                log.Debug(message);
                 return BadRequest();
             }
 
@@ -75,7 +82,7 @@ namespace ThlTestProject.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!ProductExists(id))
                 {
@@ -83,11 +90,13 @@ namespace ThlTestProject.Controllers
                 }
                 else
                 {
+                    var message = string.Format("Exception while updating, error : {0}",ex.Message);
+                    log.Error(message);
                     throw;
                 }
             }
 
-            return NoContent();
+            return Ok("Product updated successsfully.");
         }
 
         // POST: api/Products
@@ -96,14 +105,17 @@ namespace ThlTestProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            if(string.IsNullOrEmpty(product.Name))
+            
+            if (string.IsNullOrEmpty(product.Name))
             {
                 var message = string.Format("Product name cannot be empty.");
+                log.Debug(message);
                 return BadRequest(message);
             }
             if(!isProductUnique(product.Name))
             {
                 var message = string.Format("Product {0} already exists.",product.Name);
+                log.Debug(message);
                 return BadRequest(message);
             }
             _context.Products.Add(product);
@@ -119,6 +131,8 @@ namespace ThlTestProject.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
+                var message = string.Format("Product {0} does not exist.", product.Name);
+                log.Debug(message);
                 return NotFound();
             }
 
