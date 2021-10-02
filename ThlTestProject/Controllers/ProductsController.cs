@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace ThlTestProject.Controllers
         }
 
         // GET: api/Products/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Product>> GetProduct(long id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -39,6 +40,22 @@ namespace ThlTestProject.Controllers
             }
 
             return product;
+        }
+
+        [HttpGet("{productName}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProduct(string productName)
+        {
+            if(string.IsNullOrEmpty(productName))
+            {
+                return await _context.Products.ToListAsync();
+            }
+            var products =  await _context.Products.Where(x => x.Name.ToLower().Contains(productName.ToLower())).ToListAsync();
+            if(products.Count ==0)
+            {
+                var message = string.Format("No products found that contains '{0}' in it's name.", productName);
+                return NotFound(message);
+            }
+            return products;
         }
 
         // PUT: api/Products/5
@@ -79,6 +96,11 @@ namespace ThlTestProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            if(string.IsNullOrEmpty(product.Name))
+            {
+                var message = string.Format("Product name cannot be empty.");
+                return BadRequest("Product name cannot be empty");
+            }
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
