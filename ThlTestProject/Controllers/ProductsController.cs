@@ -99,7 +99,12 @@ namespace ThlTestProject.Controllers
             if(string.IsNullOrEmpty(product.Name))
             {
                 var message = string.Format("Product name cannot be empty.");
-                return BadRequest("Product name cannot be empty");
+                return BadRequest(message);
+            }
+            if(!isProductUnique(product.Name))
+            {
+                var message = string.Format("Product {0} already exists.",product.Name);
+                return BadRequest(message);
             }
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
@@ -126,6 +131,11 @@ namespace ThlTestProject.Controllers
         private bool ProductExists(long id)
         {
             return _context.Products.Any(e => e.Id == id);
+        }
+
+        private bool isProductUnique(string name)
+        {
+            return !_context.Products.Any(e => e.Name.ToLower() == name.ToLower());
         }
     }
 }
